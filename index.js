@@ -1,9 +1,11 @@
 var totalButtons = document.querySelectorAll(".drum").length;
 var sound = ["tom-1", "tom-2", "tom-3", "tom-4", "snare",  "crash", "kick-bass"];
+var sound = ["tom-1", "tom-2", "tom-3", "tom-4", "snare",  "crash", "kick-bass"];
 for(let i = 0; i < totalButtons; i++){
     document.querySelectorAll("button")[i].addEventListener("click", function(){
         var audio = new Audio("sounds/"+sound[i]+".mp3");
         audio.play();
+        buttonAnimation(this.innerHTML);
 
         });
 }
@@ -11,6 +13,7 @@ for(let i = 0; i < totalButtons; i++){
 document.addEventListener("keydown", keyP);
 function keyP (e) {
     switchCheck(e.key);
+    buttonAnimation(e.key);
 }
 
 function switchCheck(comparison){
@@ -55,3 +58,12 @@ function switchCheck(comparison){
             break;
     }
 };
+
+
+function buttonAnimation(currentKey){
+    var activeButton = document.querySelector("."+currentKey);
+    activeButton.classList.add("pressed");
+    setTimeout(function(){
+        activeButton.classList.remove("pressed");
+    }, 100);
+}
